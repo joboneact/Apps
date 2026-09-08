@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLI Reference: Microsoft 365, Power Platform, and PnP PowerShell</title>
+  <style>
+    :root {
+      --ink: #182638;
+      --muted: #58687a;
+      --paper: #fffdf9;
+      --canvas: #e8f0ed;
+      --navy: #103a5b;
+      --teal: #087779;
+      --gold: #d69a31;
+      --line: #cbd8d2;
+      --code: #eaf2f0;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.6; }
+    a { color: var(--teal); text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+    a:hover { color: var(--navy); }
+    header { padding: 3.5rem max(1.5rem, calc((100% - 1100px) / 2)); color: #fff; background: var(--navy); border-bottom: 6px solid var(--gold); }
+    header p { max-width: 48rem; margin: 0.7rem 0 0; color: #d8e8ec; font-size: 1.13rem; }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); }
+    h2 { margin: 3rem 0 1rem; color: var(--navy); font-size: 1.85rem; }
+    h3 { margin: 2.25rem 0 0.65rem; color: var(--teal); font-size: 1.3rem; }
+    main { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .intro { margin: 0 -1.5rem; padding: 1.2rem max(1.5rem, calc((100% - 1100px) / 2)); background: #f9f3e6; border-bottom: 1px solid var(--line); }
+    .toc { margin-top: 2rem; padding: 1.1rem 1.25rem; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; }
+    .toc strong { color: var(--navy); }
+    .toc ul { display: flex; flex-wrap: wrap; gap: 0.3rem 1.25rem; padding-left: 1.2rem; margin: 0.5rem 0 0; }
+    .lead-table { margin-top: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 0.91rem; }
+    th, td { padding: 0.6rem 0.7rem; text-align: left; vertical-align: top; border: 1px solid var(--line); }
+    th { color: #fff; background: var(--navy); font-weight: 600; }
+    tr:nth-child(even) td { background: #f5f8f6; }
+    code, pre { font-family: Consolas, "Courier New", monospace; font-size: 0.88em; }
+    :not(pre) > code { padding: 0.1em 0.28em; background: var(--code); border-radius: 3px; }
+    pre { margin: 1rem 0; padding: 1rem; overflow-x: auto; color: #183241; background: var(--code); border: 1px solid #d6e2dd; border-radius: 4px; line-height: 1.45; }
+    .callout { padding: 1rem 1.15rem; background: #f9f3e6; border-left: 4px solid var(--gold); }
+    .warning { padding: 1rem 1.15rem; color: #483714; background: #fff4d7; border-left: 4px solid var(--gold); }
+    li { margin: 0.3rem 0; }
+    footer { padding: 1.4rem; color: #d8e8ec; background: var(--navy); font-family: Arial, sans-serif; font-size: 0.85rem; text-align: center; }
+    @media (max-width: 720px) { body { font-size: 16px; } header { padding-top: 2.5rem; padding-bottom: 2.5rem; } table { display: block; overflow-x: auto; white-space: nowrap; } .toc ul { display: block; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CLI Reference</h1>
+    <p>CLI for Microsoft 365, Power Platform CLI, and PnP.PowerShell: what each tool does, where to get it, and when to use it.</p>
+  </header>
+
+  <div class="intro">
+    <p>This workspace used three command-line tools. They overlap slightly, but each has a different strength.</p>
+  </div>
+
+  <main>
+    <nav class="toc" aria-label="Page contents">
+      <strong>Contents</strong>
+      <ul>
+        <li><a href="#m365">CLI for Microsoft 365</a></li>
+        <li><a href="#pac">Power Platform CLI</a></li>
+        <li><a href="#pnp">PnP.PowerShell</a></li>
+        <li><a href="#choose">Which tool should I choose?</a></li>
+      </ul>
+    </nav>
+
+    <table class="lead-table"><thead><tr><th>Tool</th><th>Primary use in this work</th><th>Current status</th></tr></thead><tbody>
+      <tr><td>CLI for Microsoft 365 (<code>m365</code>)</td><td>Microsoft 365, SharePoint, Entra, Outlook, Teams, and Power Automate administration</td><td>Used transiently through <code>npx</code>; version <code>11.11.0</code></td></tr>
+      <tr><td>Power Platform CLI (<code>pac</code>)</td><td>Dataverse environments, solutions, Canvas App files, and Power Platform connections</td><td>Installed; version <code>2.8.1</code></td></tr>
+      <tr><td>PnP.PowerShell</td><td>SharePoint administration through PowerShell cmdlets</td><td>Requires PowerShell 7.4+; PowerShell <code>7.6.5</code> is available</td></tr>
+    </tbody></table>
+
+    <section id="m365">
+      <h2>CLI for Microsoft 365</h2>
+      <h3>What it is</h3>
+      <p><a href="https://pnp.github.io/cli-microsoft365/">CLI for Microsoft 365</a> is an open-source cross-platform command-line tool maintained by the Microsoft 365 developer community. It automates Microsoft 365 workloads with a consistent command structure.</p>
+      <pre><code>m365 &lt;workload&gt; &lt;resource&gt; &lt;operation&gt; [options]</code></pre>
+      <pre><code>m365 status
+m365 spo list add --title "Example" --webUrl "https://contoso.sharepoint.com/sites/demo"
+m365 flow list --environmentName "Default-..."</code></pre>
+
+      <h3>Where to get it</h3>
+      <ul>
+        <li><a href="https://pnp.github.io/cli-microsoft365/">Documentation: pnp.github.io/cli-microsoft365</a></li>
+        <li><a href="https://www.npmjs.com/package/@pnp/cli-microsoft365">npm package: @pnp/cli-microsoft365</a></li>
+        <li><a href="https://github.com/pnp/cli-microsoft365">GitHub source and releases: pnp/cli-microsoft365</a></li>
+      </ul>
+      <p>For a one-off invocation without a global installation:</p>
+      <pre><code>npx --yes --package @pnp/cli-microsoft365@11.11.0 m365 version</code></pre>
+      <p>For a global installation:</p>
+      <pre><code>npm install -g @pnp/cli-microsoft365
+m365 version</code></pre>
+      <p>Node.js and npm are required. Download Node.js from <a href="https://nodejs.org/">nodejs.org</a>.</p>
+
+      <h3>First-use setup and help</h3>
+      <pre><code>m365 setup
+m365 help
+m365 &lt;command&gt; --help
+m365 version</code></pre>
+      <div class="callout">Use built-in help before a write operation. It documents the exact installed version's required permissions, parameters, examples, and output options.</div>
+
+      <h3>Authentication</h3>
+      <pre><code>m365 login --authType deviceCode --appId &lt;APPLICATION-CLIENT-ID&gt;
+m365 status
+m365 logout</code></pre>
+      <p><code>&lt;APPLICATION-CLIENT-ID&gt;</code> is the <strong>Application (client) ID</strong> of an Entra app registration configured as a public client. It identifies the CLI to Entra ID. The device-code browser prompt signs in as the user and obtains delegated permissions; it does not use a client secret.</p>
+      <div class="warning">Use an authentication method appropriate to the security model. Do not put passwords, access tokens, or client secrets in scripts or workspace files.</div>
+
+      <h3>Main operation groups</h3>
+      <p>The installed <code>m365</code> v11.11.0 lists these top-level areas. This is a workload-level list, not every individual command.</p>
+      <table><thead><tr><th>Group</th><th>Operations it covers</th></tr></thead><tbody>
+        <tr><td><code>app</code></td><td>Microsoft 365 application administration</td></tr><tr><td><code>booking</code></td><td>Microsoft Bookings</td></tr><tr><td><code>cli</code></td><td>CLI configuration, telemetry, and updates</td></tr><tr><td><code>connection</code></td><td>Connection configuration</td></tr><tr><td><code>context</code></td><td>Saved command contexts</td></tr><tr><td><code>entra</code></td><td>App registrations, service principals, groups, users, permissions, and other Entra resources</td></tr><tr><td><code>exo</code></td><td>Exchange Online operations</td></tr><tr><td><code>external</code></td><td>External items and connections</td></tr><tr><td><code>file</code></td><td>Microsoft 365 file operations</td></tr><tr><td><code>flow</code></td><td>List, get, export, enable, disable, run, and remove existing Power Automate flows</td></tr><tr><td><code>graph</code></td><td>Microsoft Graph queries and operations</td></tr><tr><td><code>onedrive</code></td><td>OneDrive files and configuration</td></tr><tr><td><code>onenote</code></td><td>OneNote notebooks and pages</td></tr><tr><td><code>outlook</code></td><td>Mail, calendar, contacts, and mailbox operations</td></tr><tr><td><code>pa</code></td><td>Power Automate administration and connectors</td></tr><tr><td><code>planner</code></td><td>Plans, buckets, tasks, and labels</td></tr><tr><td><code>pp</code></td><td>Power Platform environments, apps, connections, and policies</td></tr><tr><td><code>purview</code></td><td>Microsoft Purview resources</td></tr><tr><td><code>search</code></td><td>Microsoft Search queries and configuration</td></tr><tr><td><code>spe</code></td><td>SharePoint Embedded</td></tr><tr><td><code>spfx</code></td><td>SharePoint Framework project helpers</td></tr><tr><td><code>spo</code></td><td>SharePoint Online sites, lists, fields, files, pages, permissions, and settings</td></tr><tr><td><code>spp</code></td><td>SharePoint Premium operations</td></tr><tr><td><code>teams</code></td><td>Teams apps, teams, channels, tabs, and messages</td></tr><tr><td><code>tenant</code></td><td>Tenant-wide Microsoft 365 settings</td></tr><tr><td><code>todo</code></td><td>Microsoft To Do lists and tasks</td></tr><tr><td><code>util</code></td><td>CLI utility operations</td></tr><tr><td><code>viva</code></td><td>Viva Connections, Learning, and related resources</td></tr>
+      </tbody></table>
+
+      <h3>General operations</h3>
+      <table><thead><tr><th>Command</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>m365 docs</code></td><td>Open the documentation page for a command</td></tr><tr><td><code>m365 login</code> / <code>logout</code> / <code>status</code></td><td>Manage interactive authentication</td></tr><tr><td><code>m365 request</code></td><td>Send a supported authenticated web request</td></tr><tr><td><code>m365 search</code></td><td>Search Microsoft 365 data</td></tr><tr><td><code>m365 setup</code></td><td>Configure CLI preferences</td></tr><tr><td><code>m365 version</code></td><td>Show installed version</td></tr>
+      </tbody></table>
+
+      <h3>SharePoint list operations for this task</h3>
+      <pre><code>m365 spo list add --help
+m365 spo list get --help
+m365 spo field add --help
+m365 spo listitem add --help</code></pre>
+      <pre><code>m365 spo list add `
+  --title "MyAddressListSept2026DG" `
+  --baseTemplate GenericList `
+  --webUrl "https://bartco1.sharepoint.com/sites/bartco1"</code></pre>
+      <p>Prefer <code>--output json</code> for scripts and <code>--output text</code> for an interactive terminal. Do not parse the spacing of a text table in automation.</p>
+
+      <h3>Power Automate flow operations</h3>
+      <pre><code>flow disable
+flow enable
+flow export
+flow get
+flow list
+flow remove
+flow run</code></pre>
+      <p>The installed CLI does not expose <code>flow create</code>. Create <code>HelloWorkflowSept2026DG</code> in <a href="https://make.powerautomate.com/">Power Automate</a> first. Then use <code>m365 flow list</code>, <code>get</code>, <code>export</code>, <code>enable</code>, and <code>disable</code> to inspect, back up, and manage it.</p>
+    </section>
+
+    <section id="pac">
+      <h2>Power Platform CLI (<code>pac</code>)</h2>
+      <h3>What it is and where to get it</h3>
+      <p><a href="https://learn.microsoft.com/power-platform/developer/cli/introduction">Power Platform CLI</a> is Microsoft's official CLI for Power Platform development and administration. It works with Dataverse environments, solutions, Canvas Apps, connectors, Power Pages, Power Apps component framework controls, and more.</p>
+      <ul><li><a href="https://learn.microsoft.com/power-platform/developer/cli/introduction#install-power-platform-cli">Install Power Platform CLI</a></li><li><a href="https://learn.microsoft.com/power-platform/developer/cli/reference">Power Platform CLI command reference</a></li></ul>
+      <pre><code>pac help
+pac &lt;group&gt; help
+pac &lt;group&gt; &lt;command&gt; help</code></pre>
+      <h3>Operations used in this workspace</h3>
+      <table><thead><tr><th>Command group</th><th>Operations used or relevant</th></tr></thead><tbody>
+        <tr><td><code>pac auth</code></td><td>Create, list, and select Dataverse authentication profiles</td></tr><tr><td><code>pac env</code></td><td>Inspect, list, select, and query Dataverse environments</td></tr><tr><td><code>pac solution</code></td><td>Initialize, pack, import, export, list, and manage Dataverse solutions</td></tr><tr><td><code>pac canvas</code></td><td>List and download Canvas Apps; unpack and pack <code>.msapp</code> source files</td></tr><tr><td><code>pac connection</code></td><td>List and manage Power Platform connector connections</td></tr>
+      </tbody></table>
+      <pre><code>pac auth list
+pac env who
+pac solution list
+pac canvas list
+pac connection list</code></pre>
+      <div class="warning"><strong>Canvas App limitation:</strong> the installed PAC CLI can download, unpack, and pack <code>.msapp</code> files, but it cannot upload or overwrite a Canvas App in the environment. Use Power Apps Studio to import, save, and publish a packed app.</div>
+    </section>
+
+    <section id="pnp">
+      <h2>PnP.PowerShell</h2>
+      <h3>What it is and where to get it</h3>
+      <p><a href="https://pnp.github.io/powershell/">PnP.PowerShell</a> is a PowerShell module for SharePoint, Microsoft Teams, Microsoft 365 Groups, Planner, and related Microsoft 365 services.</p>
+      <ul><li><a href="https://pnp.github.io/powershell/articles/installation.html">Installing PnP PowerShell</a></li><li><a href="https://pnp.github.io/powershell/cmdlets/">PnP PowerShell cmdlets</a></li></ul>
+      <p>The current version requires PowerShell <code>7.4</code> or later. This computer has PowerShell <code>7.6.5</code>:</p>
+      <pre><code>&amp; 'C:\Program Files\PowerShell\7\pwsh.exe'
+
+Install-Module PnP.PowerShell -Scope CurrentUser
+Import-Module PnP.PowerShell</code></pre>
+      <h3>Relevant operations</h3>
+      <table><thead><tr><th>Cmdlet</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td><code>Connect-PnPOnline</code></td><td>Authenticate to a SharePoint site</td></tr><tr><td><code>Get-PnPWeb</code></td><td>Verify the active site connection</td></tr><tr><td><code>New-PnPList</code></td><td>Create a SharePoint list</td></tr><tr><td><code>Add-PnPField</code></td><td>Add a list or site column</td></tr><tr><td><code>Add-PnPListItem</code></td><td>Create a list item</td></tr><tr><td><code>Get-PnPList</code></td><td>Retrieve list details</td></tr><tr><td><code>Get-PnPListItem</code></td><td>Retrieve list items</td></tr>
+      </tbody></table>
+      <p>PnP.PowerShell is a good alternative when a PowerShell-native script is preferred. In this session, its interactive device-login prompt did not work through the terminal host, so CLI for Microsoft 365 is the more practical path after an Entra app ID is supplied.</p>
+    </section>
+
+    <section id="choose">
+      <h2>Which tool should I choose?</h2>
+      <table><thead><tr><th>Task</th><th>Preferred tool</th></tr></thead><tbody>
+        <tr><td>Create SharePoint lists, columns, and fictional list data</td><td>CLI for Microsoft 365 or PnP.PowerShell</td></tr><tr><td>Create a new Power Automate cloud flow</td><td>Power Automate web designer</td></tr><tr><td>List, export, enable, or disable an existing flow</td><td>CLI for Microsoft 365</td></tr><tr><td>Create/import/export a Dataverse solution</td><td>Power Platform CLI</td></tr><tr><td>Download/unpack/edit/pack a Canvas App file</td><td>Power Platform CLI</td></tr><tr><td>Import and publish a Canvas App</td><td>Power Apps Studio</td></tr>
+      </tbody></table>
+      <div class="callout">For all tools, start with the narrowest help command, authenticate with least privilege, and use JSON output when a script needs to read command results.</div>
+    </section>
+  </main>
+  <footer>CLI Reference: Microsoft 365, Power Platform, and PnP PowerShell</footer>
+</body>
+</html>

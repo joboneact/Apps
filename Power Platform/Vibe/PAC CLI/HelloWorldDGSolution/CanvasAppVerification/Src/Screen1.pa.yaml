@@ -1,0 +1,77 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Screen1:
+    Properties:
+      Fill: =RGBA(247, 249, 252, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - AppTitle:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(16, 58, 91, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =72
+            PaddingLeft: =24
+            Size: =22
+            Text: ="Hello World DG"
+            Width: =Parent.Width
+      - TabOne:
+          Control: Button@0.0.45
+          Properties:
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            OnSelect: =Set(varSelectedTab, "Tab 1")
+            Text: ="Tab 1"
+            Width: =140
+            X: =24
+            Y: =96
+      - TabTwo:
+          Control: Button@0.0.45
+          Properties:
+            FontWeight: =FontWeight.Semibold
+            Height: =44
+            OnSelect: =Set(varSelectedTab, "Tab 2")
+            Text: ="Tab 2"
+            Width: =140
+            X: =172
+            Y: =96
+      - TabOneContent:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(23, 34, 53, 1)
+            Height: =80
+            Size: =18
+            Text: ="Welcome to Tab 1"
+            Visible: =IsBlank(varSelectedTab) || varSelectedTab = "Tab 1"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =168
+      - TabTwoContent:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(23, 34, 53, 1)
+            Height: =80
+            Size: =18
+            Text: ="Welcome to Tab 2"
+            Visible: =varSelectedTab = "Tab 2"
+            Width: =Parent.Width - 48
+            X: =24
+            Y: =168
+      - StatusBar:
+          Control: Label@2.5.1
+          Properties:
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(16, 58, 91, 1)
+            Height: =42
+            PaddingLeft: =24
+            Text: '="Status: " & Coalesce(varSelectedTab, "Tab 1")'
+            Width: =Parent.Width
+            Y: =Parent.Height - Self.Height
